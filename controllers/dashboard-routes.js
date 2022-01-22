@@ -10,7 +10,7 @@ router.get("/", withAuth, (req, res) => {
          // use the ID from the session
          user_id: req.session.user_id,
       },
-      attributes: ["id", "post_url", "title", "created_at"],
+      attributes: ["id", "content", "title", "created_at"],
    })
       .then((dbPostData) => {
          // serialize data before passing to template
@@ -27,7 +27,7 @@ router.get("/", withAuth, (req, res) => {
 router.get("/edit/:id", withAuth, (req, res) => {
    Post.findOne({
       where: { id: req.params.id },
-      attributes: ["id", "post_url", "title", "created_at"],
+      attributes: ["id", "content", "title", "created_at"],
    }).then((dbPostData) => {
       const post = dbPostData.get({ plain: true });
       res.render("edit-post", { post, loggedIn: req.session.loggedIn });
