@@ -11,18 +11,6 @@ router.get("/", (req, res) => {
          // comment data
          {
             model: Comment,
-            attributes: [
-               "id",
-               "comment_text",
-               "post_id",
-               "user_id",
-               "created_at",
-            ],
-            // user who wrote the comment
-            include: {
-               model: User,
-               attributes: ["username"],
-            },
          },
          // user who wrote the post
          {
