@@ -128,22 +128,30 @@ router.put("/:id", withAuth, (req, res) => {
 
 // delete post
 router.delete("/:id", withAuth, (req, res) => {
-   Post.destroy({
+   // delete the post's comments first
+   Comment.destroy({
       where: {
-         id: req.params.id,
+         post_id: req.params.id,
       },
-   })
-      .then((dbPostData) => {
-         if (!dbPostData) {
-            res.status(404).json({ message: "No post found with this id" });
-            return;
-         }
-         res.json(dbPostData);
+   }).then(() => {
+      // then delete the post
+      Post.destroy({
+         where: {
+            id: req.params.id,
+         },
       })
-      .catch((err) => {
-         console.log(err);
-         res.status(500).json(err);
-      });
+         .then((dbPostData) => {
+            if (!dbPostData) {
+               res.status(404).json({ message: "No post found with this id" });
+               return;
+            }
+            res.json(dbPostData);
+         })
+         .catch((err) => {
+            console.log(err);
+            res.status(500).json(err);
+         });
+   });
 });
 
 module.exports = router;
