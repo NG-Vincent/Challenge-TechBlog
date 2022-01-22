@@ -18,11 +18,9 @@ Post.init(
       },
       // contents of post
       content: {
-         type: DataTypes.STRING,
+         type: DataTypes.TEXT,
          allowNull: false,
-         validate: {
-            len: [1],
-         },
+         validate: { notEmpty: true },
       },
       // user to wrote the post
       user_id: {
