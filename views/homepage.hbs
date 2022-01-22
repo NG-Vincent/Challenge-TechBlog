@@ -1,7 +1,5 @@
-<ol class="post-list">
-   {{#each posts as |post|}}
-      <li>
-         {{> post-info post }}
-      </li>
-   {{/each}}
-</ol>
+{{#each posts as |post|}}
+   <div>
+      {{> post-info post }}
+   </div>
+{{/each}}
